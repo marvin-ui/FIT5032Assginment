@@ -1,0 +1,73 @@
+﻿@model IEnumerable<FIT5032_assginment.Models.Coach>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Select a coach</h2>
+
+@*<p>
+        @Html.ActionLink("Create New", "Create")
+    </p>*@
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CoachName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CoachDescription)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CoachPhone)
+            </th>
+            @*<th>
+                    @Html.DisplayNameFor(model => model.SwimmingPool.Name)
+                </th>*@
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CoachName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CoachDescription)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CoachPhone)
+                </td>
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.SwimmingPool.Name)
+                    </td>*@
+                <td>
+                    @Html.ActionLink("Select", "Create", "Reservations", new { id = item.Id }, null)
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>
+@*@Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+    @Html.ActionLink("Delete", "Delete", new { id = item.Id })*@
+
+@section Scripts
+{
+    <script src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.table').DataTable({
+                "pagingType": "full_numbers"
+            });
+        });
+    </script>
+}
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css" />
+
+

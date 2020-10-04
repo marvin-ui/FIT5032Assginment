@@ -1,0 +1,39 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <h1>Swimming Go</h1>
+    <p class="lead">Swimming Go provides a service that users can book a swimming pool and coach to learn swimming. Users can also share their swimming experience through this website to help each other.</p>
+
+</div>
+
+@if (!User.Identity.IsAuthenticated)
+{
+    <p><a href="/Account/Register" class="btn btn-danger btn-lg">Please Login first</a></p>
+}
+
+<div class="row">
+    @if (User.Identity.IsAuthenticated)
+    {
+
+        <div class="col-md-6">
+            <h2>Coach appointment</h2>
+            <p>
+                You can choose a swimming pool and reserve a coach to guide you in swimming. The coaches will provide you with professional guidance.
+            </p>
+            <p><a class="btn btn-default" href="/Reservations/SelectSwimmingPool">Reservation »</a></p>
+        </div>
+        <div class="col-md-6">
+            <h2>My reservation records</h2>
+            <p>You can view all your appointments here</p>
+            <p><a class="btn btn-default" href="/Reservations">History »</a></p>
+        </div>
+        @*<div class="col-md-4">
+            <h2>Web Hosting</h2>
+            <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
+            <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more »</a></p>
+        </div>*@
+
+    }
+</div>

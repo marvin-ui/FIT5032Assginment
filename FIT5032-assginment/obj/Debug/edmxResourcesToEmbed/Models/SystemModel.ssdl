@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Coach">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="CoachName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="CoachDescription" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="CoachPhone" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="SwimmingPoolID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Post">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="PostTitle" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="PostDescription" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Reservation">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="StartTime" Type="datetime" Nullable="false" />
+    <Property Name="EndTime" Type="datetime" Nullable="false" />
+    <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="CoachId" Type="int" Nullable="false" />
+    <Property Name="ReservationDesc" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SwimmingPool">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Address" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <Association Name="FK__Coach__SwimmingP__68487DD7">
+    <End Role="SwimmingPool" Type="Self.SwimmingPool" Multiplicity="1" />
+    <End Role="Coach" Type="Self.Coach" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SwimmingPool">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Coach">
+        <PropertyRef Name="SwimmingPoolID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Reservati__Coach__66603565">
+    <End Role="Coach" Type="Self.Coach" Multiplicity="1" />
+    <End Role="Reservation" Type="Self.Reservation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Coach">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Reservation">
+        <PropertyRef Name="CoachId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ModelStoreContainer">
+    <EntitySet Name="Coach" EntityType="Self.Coach" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Post" EntityType="Self.Post" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Reservation" EntityType="Self.Reservation" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SwimmingPool" EntityType="Self.SwimmingPool" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Coach__SwimmingP__68487DD7" Association="Self.FK__Coach__SwimmingP__68487DD7">
+      <End Role="SwimmingPool" EntitySet="SwimmingPool" />
+      <End Role="Coach" EntitySet="Coach" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Reservati__Coach__66603565" Association="Self.FK__Reservati__Coach__66603565">
+      <End Role="Coach" EntitySet="Coach" />
+      <End Role="Reservation" EntitySet="Reservation" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

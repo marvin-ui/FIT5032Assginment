@@ -1,0 +1,92 @@
+﻿@model FIT5032_assginment.ViewModels.ReservationsViewModel
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<link rel="stylesheet" href="/Content/bootstrap-datetimepicker.css" />
+
+
+<h2>Select an appointment time</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    @*<h4>Reservation</h4>*@
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(model => model.StartTime, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class='input-group date col-md-10' id='datetimepicker1'>
+            <div>
+            @Html.EditorFor(model => model.StartTime, new { htmlAttributes = new { @class = "form-control" } })
+            <span class="input-group-addon" style=" width: 8px;">
+                <span class="glyphicon glyphicon-calendar"></span>
+            </span>
+                </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.EndTime, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class='input-group date col-md-10' id='datetimepicker2'>
+            <div>
+                @Html.EditorFor(model => model.EndTime, new { htmlAttributes = new { @class = "form-control" } })
+                <span class="input-group-addon" style=" width: 8px;">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                </span>
+            </div>
+        </div>
+    </div>
+    @*<div class="form-group">
+            @Html.LabelFor(model => model.EndTime, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10" type="text" id="datepicker2">
+                @Html.EditorFor(model => model.EndTime, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.EndTime, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+    <div class="form-group">
+        <p class="control-label col-md-2"><b>Coach Name:</b><p>
+            <div class="col-md-10">
+                @ViewBag.CoachName
+            </div>
+    </div>
+
+    @{Model.CoachId = ViewBag.CoachId; }
+    @Html.HiddenFor(model => model.CoachId)
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.ReservationDesc, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.ReservationDesc, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+            @Html.ValidationMessageFor(model => model.ReservationDesc, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Create" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        $(function () {
+            $('#datetimepicker1').datetimepicker();
+        });
+        $(function () {
+            $('#datetimepicker2').datetimepicker();
+        });
+    </script>
+}
+
